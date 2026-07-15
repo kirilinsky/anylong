@@ -19,9 +19,7 @@
 <p align="center">
   <a href="https://anyfamily.site">▸ any* family</a>
   &nbsp;·&nbsp;
-  <a href="https://anywhen-kappa.vercel.app/">▸ anywhen</a>
-  &nbsp;·&nbsp;
-  <a href="https://anymany.vercel.app/">▸ anymany</a>
+ 
 </p>
 
 ---
@@ -35,14 +33,14 @@ Detection is deterministic: ambiguous input throws instead of guessing.
 ```ts
 import { anylong } from "anylong";
 
-anylong(9_000_000);                       // "2 hr, 30 min"       — milliseconds
-anylong("PT2H30M");                       // "2 hr, 30 min"       — ISO 8601
-anylong("2h 30m");                        // "2 hr, 30 min"       — shorthand
-anylong({ hours: 2, minutes: 30 });       // "2 hr, 30 min"       — duration record
-anylong(startedAt, finishedAt);           // duration between two Dates
-anylong(deadline);                        // duration between a Date and now
+anylong(9_000_000); // "2 hr, 30 min"       — milliseconds
+anylong("PT2H30M"); // "2 hr, 30 min"       — ISO 8601
+anylong("2h 30m"); // "2 hr, 30 min"       — shorthand
+anylong({ hours: 2, minutes: 30 }); // "2 hr, 30 min"       — duration record
+anylong(startedAt, finishedAt); // duration between two Dates
+anylong(deadline); // duration between a Date and now
 
-anylong("P1DT4H", { locale: "ru", style: "long" });   // "1 день 4 часа"
+anylong("P1DT4H", { locale: "ru", style: "long" }); // "1 день 4 часа"
 anylong({ hours: 2, minutes: 30 }, { style: "digital" }); // "2:30:00"
 ```
 
@@ -66,12 +64,12 @@ Auto-decomposed into the largest sensible units, up to days. Zero units are
 skipped; smaller units appear only when non-zero.
 
 ```ts
-anylong(0);                        // "0 sec"
-anylong(450);                      // "450 ms"
-anylong(3_600_000);                // "1 hr"
-anylong(90_061_001);               // "1 day, 1 hr, 1 min, 1 sec, 1 ms"
+anylong(0); // "0 sec"
+anylong(450); // "450 ms"
+anylong(3_600_000); // "1 hr"
+anylong(90_061_001); // "1 day, 1 hr, 1 min, 1 sec, 1 ms"
 
-anylong(90, { unit: "s" });        // "1 min, 30 sec"  — seconds in
+anylong(90, { unit: "s" }); // "1 min, 30 sec"  — seconds in
 ```
 
 ### Date — distance from now
@@ -79,8 +77,8 @@ anylong(90, { unit: "s" });        // "1 min, 30 sec"  — seconds in
 Past or future, always the absolute value.
 
 ```ts
-anylong(post.createdAt);           // "3 hr, 12 min"
-anylong(deadline);                 // works for future dates too
+anylong(post.createdAt); // "3 hr, 12 min"
+anylong(deadline); // works for future dates too
 ```
 
 ### two Dates — distance between them
@@ -89,8 +87,8 @@ Order-independent. Measured in real elapsed time, so DST boundaries don't
 lie to you.
 
 ```ts
-anylong(startedAt, finishedAt);              // "1 day, 4 hr, 30 min"
-anylong(finishedAt, startedAt);              // same
+anylong(startedAt, finishedAt); // "1 day, 4 hr, 30 min"
+anylong(finishedAt, startedAt); // same
 anylong(startedAt, finishedAt, { locale: "de" });
 ```
 
@@ -101,9 +99,9 @@ regex, no Temporal dependency. Units are kept as given — `"PT90M"` stays
 `"90 min"`.
 
 ```ts
-anylong("PT2H30M");                // "2 hr, 30 min"
-anylong("P1DT4H");                 // "1 day, 4 hr"
-anylong("PT1.5S");                 // "1 sec, 500 ms"
+anylong("PT2H30M"); // "2 hr, 30 min"
+anylong("P1DT4H"); // "1 day, 4 hr"
+anylong("PT1.5S"); // "1 sec, 500 ms"
 ```
 
 ### string — human shorthand
@@ -112,10 +110,10 @@ Case-insensitive, order-independent, English units in v1. `m` is minutes,
 `mo` is months. Repeated units are an error.
 
 ```ts
-anylong("2h 30m");                 // "2 hr, 30 min"
-anylong("1d 4h 20s");              // "1 day, 4 hr, 20 sec"
-anylong("90s");                    // "90 sec" — units kept as given
-anylong("2 hours 30 minutes");     // "2 hr, 30 min"
+anylong("2h 30m"); // "2 hr, 30 min"
+anylong("1d 4h 20s"); // "1 day, 4 hr, 20 sec"
+anylong("90s"); // "90 sec" — units kept as given
+anylong("2 hours 30 minutes"); // "2 hr, 30 min"
 ```
 
 ### object — Intl.DurationFormat record
@@ -141,35 +139,35 @@ anylong("1:30");
 // ✗ ambiguous — hours:minutes or minutes:seconds?
 //   Use "1h 30m", "PT1H30M", or { hours: 1, minutes: 30 }.
 
-anylong(-5_000);          // ✗ negative — pass the absolute value or two Dates
-anylong("1.5h");          // ✗ fractional shorthand — use "90m" or milliseconds
-anylong("2h 3h");         // ✗ repeated unit
-anylong(new Date("x"));   // ✗ invalid Date
-anylong({ hourz: 2 });    // ✗ unknown key, accepted keys listed
-anylong(NaN);             // ✗ with the full accepted-inputs list
+anylong(-5_000); // ✗ negative — pass the absolute value or two Dates
+anylong("1.5h"); // ✗ fractional shorthand — use "90m" or milliseconds
+anylong("2h 3h"); // ✗ repeated unit
+anylong(new Date("x")); // ✗ invalid Date
+anylong({ hourz: 2 }); // ✗ unknown key, accepted keys listed
+anylong(NaN); // ✗ with the full accepted-inputs list
 ```
 
 ---
 
 ## options
 
-| Option         | Type                                          | Default        | Applies to      |
-| -------------- | --------------------------------------------- | -------------- | --------------- |
-| `locale`       | `string \| string[]`                          | runtime locale | all             |
-| `style`        | `"long" \| "short" \| "narrow" \| "digital"`  | `"short"`      | all             |
-| `unit`         | `"ms" \| "s"`                                 | `"ms"`         | number input    |
-| `largestUnit`  | `"weeks" … "milliseconds"`                    | `"days"`       | number, Date(s) |
-| `smallestUnit` | `"weeks" … "milliseconds"`                    | `"milliseconds"` | number, Date(s) |
-| …rest          | any `Intl.DurationFormat` option              | —              | all             |
+| Option         | Type                                         | Default          | Applies to      |
+| -------------- | -------------------------------------------- | ---------------- | --------------- |
+| `locale`       | `string \| string[]`                         | runtime locale   | all             |
+| `style`        | `"long" \| "short" \| "narrow" \| "digital"` | `"short"`        | all             |
+| `unit`         | `"ms" \| "s"`                                | `"ms"`           | number input    |
+| `largestUnit`  | `"weeks" … "milliseconds"`                   | `"days"`         | number, Date(s) |
+| `smallestUnit` | `"weeks" … "milliseconds"`                   | `"milliseconds"` | number, Date(s) |
+| …rest          | any `Intl.DurationFormat` option             | —                | all             |
 
 `largestUnit` / `smallestUnit` clamp the decomposition of elapsed time
 (number and Date inputs). Values are rounded at `smallestUnit`. Inputs that
 already carry units (ISO, shorthand, objects) are passed through as-is.
 
 ```ts
-anylong(90_061_000, { largestUnit: "hours" });     // "25 hr, 1 min, 1 sec"
+anylong(90_061_000, { largestUnit: "hours" }); // "25 hr, 1 min, 1 sec"
 anylong(30 * 86_400_000, { largestUnit: "weeks" }); // "4 wks, 2 days"
-anylong(1_500, { smallestUnit: "seconds" });        // "2 sec" — never shows ms
+anylong(1_500, { smallestUnit: "seconds" }); // "2 sec" — never shows ms
 ```
 
 Everything else — `fractionalDigits`, per-unit styles like `hours: "2-digit"`,
@@ -185,10 +183,10 @@ anylong({ minutes: 5 }, { hoursDisplay: "always", style: "digital" }); // "0:05:
 ## styles
 
 ```ts
-anylong("2h 30m", { style: "long" });     // "2 hours, 30 minutes"
-anylong("2h 30m", { style: "short" });    // "2 hr, 30 min"       (default)
-anylong("2h 30m", { style: "narrow" });   // "2h 30m"
-anylong("2h 30m", { style: "digital" });  // "2:30:00"
+anylong("2h 30m", { style: "long" }); // "2 hours, 30 minutes"
+anylong("2h 30m", { style: "short" }); // "2 hr, 30 min"       (default)
+anylong("2h 30m", { style: "narrow" }); // "2h 30m"
+anylong("2h 30m", { style: "digital" }); // "2:30:00"
 ```
 
 ---
@@ -199,9 +197,9 @@ Any BCP 47 tag, fallback arrays included. No locale files, no plugins —
 native `Intl` ships the data.
 
 ```ts
-anylong("2h 30m", { locale: "ru", style: "long" });  // "2 часа 30 минут"
-anylong("2h 30m", { locale: "de", style: "long" });  // "2 Stunden, 30 Minuten"
-anylong("2h 30m", { locale: "ja" });                 // "2 時間 30 分"
+anylong("2h 30m", { locale: "ru", style: "long" }); // "2 часа 30 минут"
+anylong("2h 30m", { locale: "de", style: "long" }); // "2 Stunden, 30 Minuten"
+anylong("2h 30m", { locale: "ja" }); // "2 時間 30 分"
 anylong("2h 30m", { locale: ["sr-Latn-RS", "en"] });
 ```
 
@@ -246,11 +244,9 @@ vary between ICU versions, so never assert on them across environments.
 
 ---
 
-## the any* family
+## the any\* family
 
 Small, zero-dependency `Intl` wrappers that share one idea: any input in,
 localized string out. [anyfamily.site](https://anyfamily.site)
 
-- [anywhen](https://www.npmjs.com/package/anywhen) — dates
-- [anymany](https://www.npmjs.com/package/anymany) — numbers & plurals
-- **anylong** — durations
+ 

@@ -83,7 +83,7 @@ export default function Home() {
 
       <div className="relative z-20 flex w-full max-w-3xl flex-col items-center gap-8">
         <h1 className="sr-only">
-          anylong - tiny Intl duration formatter for any locale
+          anylong - compact Intl duration formatter for any locale
         </h1>
         <Logo className="h-auto w-36 opacity-90" />
 

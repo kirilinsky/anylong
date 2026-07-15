@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://anylong.vercel.app"),
 
   title: {
-    default: "anylong | Tiny Intl duration formatter",
+    default: "anylong | Compact Intl duration formatter",
     template: "%s | anylong",
   },
 
   description:
-    "Tiny zero-dependency duration formatter for JavaScript and TypeScript. Any duration in — milliseconds, ISO 8601, shorthand, Dates — localized string out via native Intl.DurationFormat.",
+    "Compact zero-dependency duration formatter for JavaScript and TypeScript. Any duration in — milliseconds, ISO 8601, shorthand, Dates — localized string out via native Intl.DurationFormat.",
 
   keywords: [
     "duration formatting",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     url: "https://anylong.vercel.app",
     title: "anylong — duration formatting for any locale",
     description:
-      "Tiny zero-dependency duration formatter. Milliseconds, ISO 8601, shorthand strings, and Dates in — localized strings out via native Intl.DurationFormat.",
+      "Compact zero-dependency duration formatter. Milliseconds, ISO 8601, shorthand strings, and Dates in — localized strings out via native Intl.DurationFormat.",
     siteName: "anylong",
     locale: "en_US",
     images: [
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "anylong — duration formatting for any locale",
     description:
-      "Tiny zero-dependency duration formatter built on native Intl.DurationFormat.",
+      "Compact zero-dependency duration formatter built on native Intl.DurationFormat.",
     images: ["/og.jpg"],
     creator: "@kirilinsky",
   },
