@@ -12,8 +12,8 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1(next@16.2.1(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
       anylong:
-        specifier: file:..
-        version: file:..
+        specifier: 1.0.0
+        version: 1.0.0
       next:
         specifier: 16.2.1
         version: 16.2.1(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -787,8 +787,8 @@ packages:
     resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==}
     engines: {node: '>=8'}
 
-  anylong@file:..:
-    resolution: {directory: .., type: directory}
+  anylong@1.0.0:
+    resolution: {integrity: sha512-Vqk7Y0/UZcu9LvVLslt0xLK7xouXRx/dPz+2vCJAE6DiLh3dYXi9R44c6n7m3asqRawAcvPPvF8uogCQSZLIAg==}
     engines: {node: '>=18'}
 
   argparse@2.0.1:
@@ -2660,7 +2660,7 @@ snapshots:
     dependencies:
       color-convert: 2.0.1
 
-  anylong@file:..: {}
+  anylong@1.0.0: {}
 
   argparse@2.0.1: {}
 
