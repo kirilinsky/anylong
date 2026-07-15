@@ -1,0 +1,84 @@
+{
+    "name": "anylong",
+    "version": "1.0.0",
+    "description": "Tiny duration formatter — any duration in, localized string out. One function over Intl.DurationFormat, any locale.",
+    "type": "module",
+    "sideEffects": false,
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "packageManager": "pnpm@10.32.1",
+    "engines": {
+        "node": ">=18"
+    },
+    "volta": {
+        "node": "24.14.0"
+    },
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.cts",
+                "default": "./dist/index.cjs"
+            }
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsdown && node scripts/cjs-types.mjs",
+        "lint": "oxlint src",
+        "publint": "publint",
+        "test": "vitest run",
+        "test:coverage": "vitest run --coverage",
+        "typecheck": "tsc --noEmit",
+        "version": "node scripts/sync-jsr.mjs && git add jsr.json",
+        "release": "npm version patch && git push --follow-tags"
+    },
+    "keywords": [
+        "duration",
+        "duration-formatting",
+        "time",
+        "elapsed",
+        "interval",
+        "humanize",
+        "human-readable",
+        "iso-8601",
+        "intl",
+        "durationformat",
+        "i18n",
+        "localization",
+        "formatter",
+        "lightweight",
+        "zero-dependency",
+        "typescript",
+        "esm",
+        "ssr",
+        "nextjs",
+        "react",
+        "humanize-duration-alternative"
+    ],
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^22.19.15",
+        "@vitest/coverage-v8": "^3.2.4",
+        "oxlint": "^1.71.0",
+        "publint": "^0.3.21",
+        "tsdown": "^0.22.3",
+        "typescript": "^5.9.3",
+        "vitest": "^3.2.4"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kirilinsky/anylong.git"
+    },
+    "author": "Kirilinsky (https://github.com/kirilinsky)",
+    "bugs": {
+        "url": "https://github.com/kirilinsky/anylong/issues"
+    },
+    "homepage": "https://github.com/kirilinsky/anylong#readme"
+}
