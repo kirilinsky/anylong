@@ -66,6 +66,19 @@ describe("number input", () => {
     );
   });
 
+  it("carries over at unit boundaries instead of rounding into the wrong unit", () => {
+    expect(anylong(999, { locale: "en" })).toBe(en({ milliseconds: 999 }));
+    expect(anylong(1000, { locale: "en" })).toBe(en({ seconds: 1 }));
+    expect(anylong(59_999, { locale: "en" })).toBe(
+      en({ seconds: 59, milliseconds: 999 }),
+    );
+    expect(anylong(60_000, { locale: "en" })).toBe(en({ minutes: 1 }));
+    expect(anylong(3_599_999, { locale: "en" })).toBe(
+      en({ minutes: 59, seconds: 59, milliseconds: 999 }),
+    );
+    expect(anylong(3_600_000, { locale: "en" })).toBe(en({ hours: 1 }));
+  });
+
   it("rejects negative numbers", () => {
     expect(() => anylong(-5_000)).toThrow(/negative durations are not supported/i);
   });
@@ -159,6 +172,12 @@ describe("ISO 8601 strings", () => {
     expect(anylong("PT1,5S", { locale: "en" })).toBe(
       en({ seconds: 1, milliseconds: 500 }),
     );
+  });
+
+  it("carries a rounded-up fractional second into whole seconds", () => {
+    // .9995 * 1000 rounds to 1000ms, which must carry into seconds, not
+    // render as an invalid "1000 milliseconds".
+    expect(anylong("PT1.9995S", { locale: "en" })).toBe(en({ seconds: 2 }));
   });
 
   it("distinguishes months from minutes by position", () => {

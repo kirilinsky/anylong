@@ -1,6 +1,6 @@
 {
     "name": "anylong",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Compact duration formatter — any duration in, localized string out. One function over Intl.DurationFormat, any locale.",
     "type": "module",
     "sideEffects": false,

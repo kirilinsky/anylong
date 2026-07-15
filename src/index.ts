@@ -39,7 +39,12 @@ export interface DurationFormatOptions {
   fractionalDigits?: number;
 }
 
-/** An `Intl.DurationFormat` duration record. All values must be non-negative integers. */
+/**
+ * An `Intl.DurationFormat` duration record. All values must be non-negative integers.
+ * Not normalized — `{ minutes: 120 }` is passed through as-is, it is not folded into
+ * `{ hours: 2 }`. Only number/Date/ISO/shorthand inputs get decomposed; a record you
+ * pass in comes back out exactly as given.
+ */
 export interface DurationRecord {
   years?: number;
   months?: number;
@@ -58,7 +63,9 @@ export interface DurationRecord {
  *
  * - `Date` — duration between that date and now (absolute value)
  * - `number` — milliseconds, or seconds with `{ unit: "s" }`
- * - `string` — ISO 8601 (`"PT2H30M"`) or shorthand (`"2h 30m"`, `"2 hours 30 minutes"`)
+ * - `string` — ISO 8601 (`"PT2H30M"`) or shorthand (`"2h 30m"`, `"2 hours 30 minutes"`).
+ *   Colon notation (`"1:30"`) is rejected — it's ambiguous between hours:minutes
+ *   and minutes:seconds, so it intentionally throws instead of guessing.
  * - `DurationRecord` — passed through to `Intl.DurationFormat`
  */
 export type DurationInput = Date | number | string | DurationRecord;
@@ -203,7 +210,13 @@ function formatter(locale: Locale | undefined, opts: DurationFormatOptions): Dur
     );
   const k = `${localeKey(locale)}|${JSON.stringify(opts)}`;
   const hit = dfCache.get(k);
-  if (hit) return hit;
+  if (hit) {
+    // Refresh recency: delete + re-set moves this key to the end of
+    // Map's iteration order, which is what the eviction below reads.
+    dfCache.delete(k);
+    dfCache.set(k, hit);
+    return hit;
+  }
   const v = new DF(locale, opts);
   if (dfCache.size >= CACHE_LIMIT) dfCache.delete(dfCache.keys().next().value!);
   dfCache.set(k, v);
@@ -272,8 +285,14 @@ function parseIso(s: string): DurationRecord {
   if (min !== undefined) rec.minutes = +min;
   if (sec !== undefined) {
     const v = Number(sec.replace(",", "."));
-    rec.seconds = Math.trunc(v);
-    const ms = Math.round((v % 1) * 1000);
+    let whole = Math.trunc(v);
+    let ms = Math.round((v % 1) * 1000);
+    // Rounding a fraction like .9995 can carry a full second (ms === 1000).
+    if (ms === 1000) {
+      whole += 1;
+      ms = 0;
+    }
+    rec.seconds = whole;
     if (ms > 0) rec.milliseconds = ms;
   }
   return rec;
