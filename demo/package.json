@@ -2,6 +2,7 @@
   "name": "demo",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://anylong.vercel.app/",
   "volta": {
     "node": "24.14.0"
   },

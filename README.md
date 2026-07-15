@@ -8,6 +8,7 @@
   <a href="https://www.npmjs.com/package/anylong"><img src="https://img.shields.io/npm/v/anylong?style=flat-square&color=black" alt="npm" /></a>
   <a href="https://bundlephobia.com/package/anylong"><img src="https://img.shields.io/bundlephobia/minzip/anylong?style=flat-square&color=black&label=gzip" /></a>
   <a href="./LICENSE"><img src="https://img.shields.io/npm/l/anylong?style=flat-square&color=black" alt="license" /></a>
+  <a href="https://codecov.io/gh/kirilinsky/anylong"><img src="https://codecov.io/gh/kirilinsky/anylong/graph/badge.svg" alt="coverage" /></a>
 </p>
 
 <p align="center">
@@ -19,7 +20,7 @@
 <p align="center">
   <a href="https://anyfamily.site">▸ any* family</a>
   &nbsp;·&nbsp;
- 
+  <a href="https://anylong.vercel.app/">▸ demo</a>
 </p>
 
 ---
@@ -247,6 +248,7 @@ vary between ICU versions, so never assert on them across environments.
 ## the any\* family
 
 Small, zero-dependency `Intl` wrappers that share one idea: any input in,
-localized string out. [anyfamily.site](https://anyfamily.site)
+localized string out. [anyfamily.site](https://anyfamily.site) ·
+[npmjs.com/package/anyfamily](https://www.npmjs.com/package/anyfamily)
 
  
